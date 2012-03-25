@@ -505,7 +505,7 @@ module Gruff
       # When @hide title, leave a title_margin space for aesthetics.
       # Same with @hide_legend
       @graph_top = @top_margin +
-        (@hide_title  ? title_margin  : @title_caps_height  + title_margin ) +
+        (@hide_title  ? 0.0 : @title_caps_height  + title_margin ) +
         (@hide_legend ? legend_margin : @legend_caps_height + legend_margin)
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 :
