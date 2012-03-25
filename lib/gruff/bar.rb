@@ -65,9 +65,11 @@ protected
         conversion.getLeftYRightYscaled( data_point, conv )
 
         # create new bar
-        @d = @d.fill data_row[DATA_COLOR_INDEX]
-        @d = @d.rectangle(left_x, conv[0], right_x, conv[1])
-
+        unless data_point == 0.0
+          @d = @d.fill data_row[DATA_COLOR_INDEX]
+          @d = @d.rectangle(left_x, conv[0], right_x, conv[1])
+        end
+        
         # Calculate center based on bar_width and current row
         label_center = @graph_left + 
                       (@data.length * @bar_width * point_index) + 
