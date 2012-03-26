@@ -73,6 +73,16 @@ class TestGruffSideStackedBar < GruffTestCase
     g.write "test/output/side_stacked_bar_long_label.png"
   end
 
+  def test_zero_data
+    g = Gruff::SideStackedBar.new
+    g.title = 'Side Stacked Bar Zero Data'
+    g.labels = { 0 => 'Nov', 1 => 'Dec' }
+    %w(Jimmy Charles Julie Jane Philip Arthur).each do |name|
+      g.data name, [1, 0]
+    end
+    g.write "test/output/side_stacked_bar_zero_data.png"
+  end
+
 protected
 
   def setup_basic_graph(size=800)

@@ -45,6 +45,8 @@ class Gruff::SideStackedBar < Gruff::SideBar
     	  temp2 = @graph_left + @graph_width - height[point_index] - 1
     	  difference = temp2 - temp1
 
+        next if difference <= 0
+
     	  @d = @d.fill data_row[DATA_COLOR_INDEX]
 
         left_x = length[point_index] #+ 1
