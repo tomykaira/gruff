@@ -79,7 +79,7 @@ protected
         # Subtract half a bar width to center left if requested
         draw_label(label_center - (@center_labels_over_point ? @bar_width / 2.0 : 0.0), point_index)
 
-        if @show_labels_for_bar_values
+        if @show_labels_for_bar_values && @norm_data[row_index][3][point_index] > 0
           draw_value_label(left_x + (right_x - left_x)/2, conv[0]-20, @norm_data[row_index][3][point_index])
         end
       end
