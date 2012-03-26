@@ -38,8 +38,8 @@ module Gruff
 
     # Space around text elements. Mostly used for vertical spacing
     LEGEND_MARGIN = TITLE_MARGIN = 20.0
-    LABEL_MARGIN = 10.0
-    DEFAULT_MARGIN = 1.0
+    LABEL_MARGIN = 5.0
+    DEFAULT_MARGIN = 5.0
 
     DEFAULT_TARGET_WIDTH = 800
 
@@ -384,8 +384,6 @@ module Gruff
       end
     end
 
-
-
     protected
 
     # Overridden by subclasses to do the actual plotting of the graph.
@@ -506,7 +504,7 @@ module Gruff
       # Same with @hide_legend
       @graph_top = @top_margin +
         (@hide_title  ? 0.0 : @title_caps_height  + title_margin ) +
-        (@hide_legend ? legend_margin : @legend_caps_height + legend_margin)
+        (@hide_legend ? 0.0 : @legend_caps_height + legend_margin)
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 :
         @marker_caps_height + LABEL_MARGIN
