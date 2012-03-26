@@ -786,7 +786,11 @@ module Gruff
       when Array
         @base_image = render_gradiated_background(*@theme_options[:background_colors])
       when String
-        @base_image = render_solid_background(@theme_options[:background_colors])
+        if @theme_options[:background_image] == 'transparent'
+          @base_image = render_transparent_background
+        else
+          @base_image = render_solid_background(@theme_options[:background_colors])
+        end
       else
         @base_image = render_image_background(*@theme_options[:background_image])
       end
