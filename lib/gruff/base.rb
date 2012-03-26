@@ -39,7 +39,7 @@ module Gruff
     # Space around text elements. Mostly used for vertical spacing
     LEGEND_MARGIN = TITLE_MARGIN = 20.0
     LABEL_MARGIN = 10.0
-    DEFAULT_MARGIN = 0.0
+    DEFAULT_MARGIN = 1.0
 
     DEFAULT_TARGET_WIDTH = 800
 
