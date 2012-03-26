@@ -45,18 +45,18 @@ class Gruff::SideStackedBar < Gruff::SideBar
     	  temp2 = @graph_left + @graph_width - height[point_index] - 1
     	  difference = temp2 - temp1
 
-        next if difference <= 0
+        unless difference <= 0
+      	  @d = @d.fill data_row[DATA_COLOR_INDEX]
 
-    	  @d = @d.fill data_row[DATA_COLOR_INDEX]
+          left_x = length[point_index] #+ 1
+          left_y = @graph_top + (@bar_width * point_index) + padding
+      	  right_x = left_x + difference
+          right_y = left_y + @bar_width * @bar_spacing
+      	  length[point_index] += difference
+          height[point_index] += (data_point * @graph_width - 2)
 
-        left_x = length[point_index] #+ 1
-              left_y = @graph_top + (@bar_width * point_index) + padding
-    	  right_x = left_x + difference
-              right_y = left_y + @bar_width * @bar_spacing
-    	  length[point_index] += difference
-        height[point_index] += (data_point * @graph_width - 2)
-
-        @d = @d.rectangle(left_x, left_y, right_x, right_y)
+          @d = @d.rectangle(left_x, left_y, right_x, right_y)
+        end
 
         # Calculate center based on bar_width and current row
         label_center = @graph_top + (@bar_width * point_index) + (@bar_width * @bar_spacing / 2.0)
