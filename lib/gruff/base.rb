@@ -140,6 +140,9 @@ module Gruff
     # The color of the auxiliary lines
     attr_accessor :marker_color
 
+    # The color of the base auxiliary line
+    attr_accessor :marker_base_color
+    
     # The number of horizontal lines shown for reference
     attr_accessor :marker_count
 
@@ -305,6 +308,7 @@ module Gruff
         :colors => ['black', 'white'],
         :additional_line_colors => [],
         :marker_color => 'white',
+        :marker_base_color => 'white',
         :font_color => 'black',
         :background_colors => nil,
         :background_image => nil
@@ -313,6 +317,7 @@ module Gruff
 
       @colors = @theme_options[:colors]
       @marker_color = @theme_options[:marker_color]
+      @marker_base_color = @theme_options[:marker_base_color] || @marker_color
       @font_color = @theme_options[:font_color] || @marker_color
       @additional_line_colors = @theme_options[:additional_line_colors]
 
@@ -323,6 +328,7 @@ module Gruff
       self.theme = {
         :colors => ['#4f83c2','#c45151','#a0bd59','#8365a6','#439ab0','#e0823f'],
         :marker_color => '#aea9a9', # Grey
+        :marker_base_color => '#676767',
         :font_color => '#676767',
         :background_colors => 'white'
       }
@@ -581,7 +587,7 @@ module Gruff
       (0..@marker_count).each do |index|
         y = @graph_top + @graph_height - index.to_f * @increment_scaled
 
-        @d = @d.fill(@marker_color)
+        @d = @d.fill(index == 0 ? @marker_base_color : @marker_color)
         @d = @d.line(@graph_left, y, @graph_right, y)
 
         marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) +
