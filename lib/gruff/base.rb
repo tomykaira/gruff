@@ -323,7 +323,7 @@ module Gruff
       self.theme = {
         :colors => ['#4f83c2','#c45151','#a0bd59','#8365a6','#439ab0','#e0823f'],
         :marker_color => '#aea9a9', # Grey
-        :font_color => 'black',
+        :font_color => '#676767',
         :background_colors => 'white'
       }
     end
