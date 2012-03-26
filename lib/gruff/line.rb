@@ -121,20 +121,7 @@ class Gruff::Line < Gruff::Base
   end
 
   def contains_one_point_only?(data_row)
-    # Spin through data to determine if there is just one_value present.
-    one_point = false
-    data_row[DATA_VALUES_INDEX].each do |data_point|
-      if !data_point.nil?
-        if one_point
-          # more than one point, bail
-          return false
-        else
-          # there is at least one data point
-          return true
-        end
-      end
-    end
-    return one_point
+    return data_row[DATA_VALUES_INDEX].length < 2
   end
 
 end
