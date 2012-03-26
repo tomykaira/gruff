@@ -29,6 +29,7 @@ protected
     padding = (@bar_width * (1 - @bar_spacing)) / 2
 
     @d = @d.stroke_opacity 0.0
+    @d = @d.stroke_antialias false
 
     # Setup the BarConversion Object
     conversion = Gruff::BarConversion.new()
@@ -84,6 +85,7 @@ protected
     draw_label(@graph_right, @column_count) if @center_labels_over_point
 
     @d.draw(@base_image)
+    @d = @d.stroke_antialias true
   end
 
 end
