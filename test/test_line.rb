@@ -322,6 +322,12 @@ class TestGruffLine < GruffTestCase
     g.write("test/output/line_large_baseline.png")
   end
 
+  def test_show_values
+    g = setup_basic_graph(400)
+    g.title = "Show Values"
+    g.hide_values = false
+    g.write("test/output/line_show_values.png")
+  end
 
   def test_hide_dots
     g = setup_basic_graph(400)
