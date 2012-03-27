@@ -608,7 +608,7 @@ module Gruff
           # Vertically center with 1.0 for the height
           @d = @d.annotate_scaled( @base_image,
                                    @graph_left - LABEL_MARGIN, 1.0,
-                                   0.0, y,
+                                   0.0, y + scale_fontsize(@marker_font_size / 4.0).floor,
                                    label(marker_label), @scale)
         end
       end

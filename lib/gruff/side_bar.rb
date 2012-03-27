@@ -114,7 +114,7 @@ protected
       @d.gravity          = EastGravity
       @d                  = @d.annotate_scaled(@base_image,
                               1, 1,
-                              -@graph_left + LABEL_MARGIN * 2.0, y_offset,
+                              -@graph_left + LABEL_MARGIN * 2.0, y_offset + scale_fontsize(@marker_font_size / 4.0).floor,
                               @labels[index], @scale)
       @labels_seen[index] = 1
     end
