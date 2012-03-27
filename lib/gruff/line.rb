@@ -88,7 +88,6 @@ class Gruff::Line < Gruff::Base
         @d = @d.stroke_width line_width ||
           clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
 
-
         circle_radius = dot_radius ||
           clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
 
@@ -103,7 +102,7 @@ class Gruff::Line < Gruff::Base
                                 1, 1,
                                 new_x, new_y + 2*circle_radius, #prevent overlap between dot and value 
                                 @data[data_row_index][DATA_VALUES_INDEX][index].to_s,
-                                @scale) unless @hide_values
+                                @scale) unless @hide_values || @data[data_row_index][DATA_VALUES_INDEX][index] == 0
 
         prev_x = new_x
         prev_y = new_y
