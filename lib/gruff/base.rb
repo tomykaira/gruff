@@ -933,26 +933,6 @@ module Gruff
       total_sum
     end
 
-    # Used by StackedBar and child classes.
-    #
-    # May need to be moved to the StackedBar class.
-    def get_maximum_by_stack
-      # Get sum of each stack
-      max_hash = {}
-      @data.each do |data_set|
-        data_set[DATA_VALUES_INDEX].each_with_index do |data_point, i|
-          max_hash[i] = 0.0 unless max_hash[i]
-          max_hash[i] += data_point.to_f
-        end
-      end
-
-      # @maximum_value = 0
-      max_hash.keys.each do |key|
-        @maximum_value = max_hash[key] if max_hash[key] > @maximum_value
-      end
-      @minimum_value = 0
-    end
-
     def make_stacked # :nodoc:
       stacked_values = Array.new(@column_count, 0)
       @data.each do |value_set|
