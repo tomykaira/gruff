@@ -24,11 +24,12 @@ protected
     @bar_spacing ||= 0.9
 
     @bars_width = @graph_height / @column_count.to_f
-    @bar_width = @bars_width / @norm_data.size
-    @d         = @d.stroke_opacity 0.0
-    height     = Array.new(@column_count, 0)
-    length     = Array.new(@column_count, @graph_left)
-    padding    = (@bar_width * (1 - @bar_spacing)) / 2
+    @bar_width  = @bars_width / @norm_data.size
+    @d          = @d.stroke_opacity 0.0
+    @d          = @d.stroke_antialias false
+    height      = Array.new(@column_count, 0)
+    length      = Array.new(@column_count, @graph_left)
+    padding     = (@bar_width * (1 - @bar_spacing)) / 2
 
     @norm_data.each_with_index do |data_row, row_index|
       @d = @d.fill data_row[DATA_COLOR_INDEX]
@@ -59,6 +60,7 @@ protected
     end
 
     @d.draw(@base_image)
+    @d = @d.stroke_antialias true
   end
 
   # Instead of base class version, draws vertical background lines and label

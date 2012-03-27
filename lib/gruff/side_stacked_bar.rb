@@ -30,6 +30,7 @@ class Gruff::SideStackedBar < Gruff::SideBar
 
     @bar_width = @graph_height / @column_count.to_f
     @d = @d.stroke_opacity 0.0
+    @d = @d.stroke_antialias false
     height = Array.new(@column_count, 0)
     length = Array.new(@column_count, @graph_left)
     padding = (@bar_width * (1 - @bar_spacing)) / 2
@@ -65,7 +66,8 @@ class Gruff::SideStackedBar < Gruff::SideBar
 
     end
 
-    @d.draw(@base_image)    
+    @d.draw(@base_image)
+    @d = @d.stroke_antialias true
   end
 
   def larger_than_max?(data_point, index=0)

@@ -22,6 +22,7 @@ class Gruff::StackedBar < Gruff::Base
       padding = (@bar_width * (1 - @bar_spacing)) / 2
     
       @d = @d.stroke_opacity 0.0
+      @d = @d.stroke_antialias false
       
       height = Array.new(@column_count, 0)
     
@@ -51,7 +52,8 @@ class Gruff::StackedBar < Gruff::Base
 
       end
     
-      @d.draw(@base_image)    
+      @d.draw(@base_image)
+      @d = @d.stroke_antialias true
     end
 
 end
