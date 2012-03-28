@@ -1,4 +1,3 @@
-
 require File.dirname(__FILE__) + '/base'
 require File.dirname(__FILE__) + '/stacked_mixin'
 
@@ -39,7 +38,7 @@ class Gruff::StackedBar < Gruff::Base
           left_x = @graph_left + (@bar_width * point_index) + padding
           left_y = @graph_top + (@graph_height -
                                  data_point * @graph_height - 
-                                 height[point_index]) + 1
+                                 height[point_index]) # + 1
           right_x = left_x + @bar_width * @bar_spacing
           right_y = @graph_top + @graph_height - height[point_index] - 1
           
