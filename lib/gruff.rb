@@ -2,6 +2,7 @@
 
 %w(
   base
+  themes
   area
   bar
   line

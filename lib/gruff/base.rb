@@ -293,52 +293,6 @@ module Gruff
       @color_index = 0
     end
 
-    # You can set a theme manually. Assign a hash to this method before you
-    # send your data.
-    #
-    #  graph.theme = {
-    #    :colors => %w(orange purple green white red),
-    #    :marker_color => 'blue',
-    #    :background_colors => %w(black grey)
-    #  }
-    #
-    # :background_image => 'squirrel.png' is also possible.
-    #
-    # (Or hopefully something better looking than that.)
-    #
-    def theme=(options)
-      reset_themes()
-
-      defaults = {
-        :colors => ['black', 'white'],
-        :additional_line_colors => [],
-        :marker_color => 'white',
-        :marker_base_color => 'white',
-        :font_color => 'black',
-        :background_colors => nil,
-        :background_image => nil
-      }
-      @theme_options = defaults.merge options
-
-      @colors = @theme_options[:colors]
-      @marker_color = @theme_options[:marker_color]
-      @marker_base_color = @theme_options[:marker_base_color] || @marker_color
-      @font_color = @theme_options[:font_color] || @marker_color
-      @additional_line_colors = @theme_options[:additional_line_colors]
-
-      render_background
-    end
-
-    def theme_default
-      self.theme = {
-        :colors => ['#4f83c2','#c45151','#a0bd59','#8365a6','#439ab0','#e0823f'],
-        :marker_color => '#eeeeee',
-        :marker_base_color => '#676767',
-        :font_color => '#676767',
-        :background_colors => 'white'
-      }
-    end
-
     # Parameters are an array where the first element is the name of the dataset
     # and the value is an array of values to plot.
     #
