@@ -221,7 +221,7 @@ module Gruff
       @data = Array.new
       @labels = Hash.new
       @labels_seen = Hash.new
-      @sort = true
+      @sort = false
       @title = nil
 
       @scale = @columns / @raw_columns
