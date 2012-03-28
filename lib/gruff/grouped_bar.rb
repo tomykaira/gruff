@@ -42,16 +42,14 @@ class Gruff::GroupedBar < Gruff::Base
       bar_width         = @group_width * @group_spacing / @norm_data.length.to_f
              
       width = Array.new(@column_count, 0)
-      puts @norm_data.inspect
+
       @norm_data.each_with_index do |data_row, row_index|      
         data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
           @d = @d.fill data_row[DATA_COLOR_INDEX]
  
           # Calculate center based on bar_width and current row
-          if row_index == 0
-            label_center = @graph_left + (@group_width * point_index) + padding + (@group_width * @group_spacing / 2.0)
-            draw_label(label_center, point_index)
-          end
+          label_center = @graph_left + (@group_width * point_index) + padding + (@group_width * @group_spacing / 2.0)
+          draw_label(label_center, point_index)
  
           # Use incremented x and scaled y
           left_x  = @graph_left + (@group_width * point_index) + width[point_index] + padding
