@@ -9,6 +9,7 @@
   pie
   spider
   net
+  grouped_bar
   stacked_area
   stacked_bar
   side_stacked_bar
