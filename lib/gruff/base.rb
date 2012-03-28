@@ -72,6 +72,9 @@ module Gruff
     # Example: 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008
     attr_accessor :labels
 
+    # allow the x labels to be rotated
+    attr_accessor :labels_rotation
+
     # Used internally for spacing.
     #
     # By default, labels are centered over the point they represent.
@@ -718,10 +721,12 @@ module Gruff
         @d.font_weight = NormalWeight
         @d.pointsize = scale_fontsize(@marker_font_size)
         @d.gravity = NorthGravity
+        @d.rotation = @labels_rotation || 0
         @d = @d.annotate_scaled(@base_image,
                                 1.0, 1.0,
                                 x_offset, y_offset,
                                 @labels[index], @scale)
+        @d.rotation = -(@labels_rotation || 0)
         @labels_seen[index] = 1
         debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
       end
