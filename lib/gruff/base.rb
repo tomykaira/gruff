@@ -72,6 +72,9 @@ module Gruff
     # Example: 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008
     attr_accessor :labels
 
+    # define custom format for value labels
+    attr_accessor :value_labels_format
+    
     # allow the x labels to be rotated
     attr_accessor :labels_rotation
 
@@ -925,14 +928,19 @@ module Gruff
     # Return a formatted string representing a number value that should be
     # printed as a label.
     def label(value)
-      label = if (@spread.to_f % @marker_count.to_f == 0) || !@y_axis_increment.nil?
-        value.to_i.to_s
-      elsif @spread > 10.0
-        sprintf("%0i", value)
-      elsif @spread >= 3.0
-        sprintf("%0.2f", value)
+    
+      if @value_labels_format
+        label = sprintf(@value_labels_format, value)
       else
-        value.to_s
+        label = if (@spread.to_f % @marker_count.to_f == 0) || !@y_axis_increment.nil?
+          value.to_i.to_s
+        elsif @spread > 10.0
+          sprintf("%0i", value)
+        elsif @spread >= 3.0
+          sprintf("%0.2f", value)
+        else
+          value.to_s
+        end
       end
 
       parts = label.split('.')
