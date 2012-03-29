@@ -973,6 +973,7 @@ module Magick
 
     # Additional method to scale annotation text since Draw.scale doesn't.
     def annotate_scaled(img, width, height, x, y, text, scale)
+      return self if text.nil? || text.empty?
       scaled_width = (width * scale) >= 1 ? (width * scale) : 1
       scaled_height = (height * scale) >= 1 ? (height * scale) : 1
 
