@@ -418,7 +418,7 @@ module Gruff
     end
 
     def calculate_spread # :nodoc:
-      @spread = @maximum_value.to_f - @minimum_value.to_f
+      @spread = BigDecimal(@maximum_value.to_s) - BigDecimal(@minimum_value.to_s)
       @spread = @spread > 0 ? @spread : 1
     end
 
