@@ -38,7 +38,7 @@ module Gruff
     ORIG_VALUES_INDEX = 3 #Only for normalized data
 
     # Space around text elements. Mostly used for vertical spacing
-    LEGEND_MARGIN = TITLE_MARGIN = 20.0
+    LEGEND_MARGIN = TITLE_MARGIN = 10.0
     LABEL_MARGIN = 5.0
     DEFAULT_MARGIN = 5.0
 
