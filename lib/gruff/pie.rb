@@ -13,19 +13,24 @@ require File.dirname(__FILE__) + '/base'
 
 class Gruff::Pie < Gruff::Base
 
-  TEXT_OFFSET_PERCENTAGE = 0.15
-
   # Can be used to make the pie start cutting slices at the top (-90.0)
   # or at another angle. Default is 0.0, which starts at 3 o'clock.
   attr_accessor :zero_degree
   # Do not show labels for slices that are less than this percent. Use 0 to always show all labels.
   # Defaults to 0
   attr_accessor :hide_labels_less_than
+  # Allowing user to change offset used for drawing label. Default : 0.15
+  attr_reader :text_offset_percentage
 
+  def text_offset_percentage=(value)
+    @text_offset_percentage = value
+  end
+  
   def initialize_ivars
     super
     @zero_degree = 0.0
     @hide_labels_less_than = 0.0
+    @text_offset_percentage = 0.15
   end
 
   def draw
@@ -68,7 +73,7 @@ class Gruff::Pie < Gruff::Base
           # RMagick must use sprintf with the string and % has special significance.
           label_string = label_val.to_s + '%%'
           @d = draw_label(center_x,center_y, half_angle,
-                          radius + (radius * TEXT_OFFSET_PERCENTAGE),
+                          radius + (radius * @text_offset_percentage),
                           label_string)
         end
 
