@@ -134,6 +134,9 @@ module Gruff
     # Message shown when there is no data. Fits up to 20 characters. Defaults
     # to "No Data."
     attr_accessor :no_data_message
+    
+    # The font size of the no data message. Defaults to 20
+    attr_accessor :no_data_message_font_size
 
     # The font size of the large title at the top of the graph
     attr_accessor :title_font_size
@@ -250,6 +253,7 @@ module Gruff
       @legend_box_size = 20.0
 
       @no_data_message = "No Data"
+      @no_data_message_font_size = 20
 
       @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @show_labels_for_bar_values = false
       @center_labels_over_point = true
@@ -776,7 +780,7 @@ module Gruff
       @d.font = @font if @font
       @d.stroke('transparent')
       @d.font_weight = NormalWeight
-      @d.pointsize = scale_fontsize(80)
+      @d.pointsize = scale_fontsize(@no_data_message_font_size)
       @d.gravity = CenterGravity
       @d = @d.annotate_scaled( @base_image,
                                @raw_columns, @raw_rows/2.0,
