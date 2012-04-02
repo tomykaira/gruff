@@ -71,6 +71,9 @@ module Gruff
     #
     # Example: 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008
     attr_accessor :labels
+    
+    # An extra hash of names for the individual columns, below first hash of labels
+    attr_accessor :xtra_labels
 
     # define custom format for value labels
     attr_accessor :value_labels_format
@@ -226,6 +229,7 @@ module Gruff
       @has_data = false
       @data = Array.new
       @labels = Hash.new
+      @xtra_labels = Hash.new
       @labels_seen = Hash.new
       @sort = false
       @title = nil
@@ -463,9 +467,11 @@ module Gruff
         # calculate_width(@marker_font_size, @labels[last_label]) / 2.0 :
         #   0
         @graph_right_margin = @right_margin #+ extra_room_for_long_label
-
-        @graph_bottom_margin = @bottom_margin +
-          @marker_caps_height + LABEL_MARGIN
+        
+        # TODO Improve calculations
+        @graph_bottom_margin = @xtra_labels.empty? ?
+        @bottom_margin + @marker_caps_height + LABEL_MARGIN :
+          @bottom_margin + @marker_caps_height * 2.5 + LABEL_MARGIN
       end
 
       @graph_right = @raw_columns - @graph_right_margin
@@ -731,6 +737,15 @@ module Gruff
                                 @labels[index], @scale)
         @d.rotation = -(@labels_rotation || 0)
         @labels_seen[index] = 1
+        
+        # Draws extra label if needed unless rotation used
+        if !@xtra_labels[index].nil? && (@labels_rotation.nil? || @labels_rotation == 0)
+          @d = @d.annotate_scaled(@base_image,
+                                  1.0, 1.0,
+                                  x_offset, y_offset + @marker_font_size * 1.5,
+                                  @xtra_labels[index], @scale)
+        end
+        
         debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
       end
     end
