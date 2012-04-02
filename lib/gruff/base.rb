@@ -636,7 +636,7 @@ module Gruff
         label_width = metrics.width + legend_square_width * 2.7
         label_widths.last.push label_width
 
-        if sum(label_widths.last) > (@raw_columns * 0.9)
+        if sum(label_widths.last) > (@raw_columns * 0.95)
           label_widths.push [label_widths.last.pop]
         end
       end
