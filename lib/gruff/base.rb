@@ -74,6 +74,9 @@ module Gruff
     
     # An extra hash of names for the individual columns, below first hash of labels
     attr_accessor :xtra_labels
+    
+    # Truncates labels if longer than max specified
+    attr_accessor :label_max_size
 
     # define custom format for value labels
     attr_accessor :value_labels_format
@@ -232,6 +235,7 @@ module Gruff
       @has_data = false
       @data = Array.new
       @labels = Hash.new
+      @label_max_size = 0
       @xtra_labels = Hash.new
       @labels_seen = Hash.new
       @sort = false
@@ -728,6 +732,11 @@ module Gruff
       if !@labels[index].nil? && @labels_seen[index].nil?
         y_offset = @graph_bottom + LABEL_MARGIN
 
+        label_text = @labels[index]
+        if label_text.size > @label_max_size && @label_max_size > 0
+          label_text = label_text[0,@label_max_size]+".."
+        end
+        
         @d.fill = @font_color
         @d.font = @font if @font
         @d.stroke('transparent')
@@ -738,7 +747,7 @@ module Gruff
         @d = @d.annotate_scaled(@base_image,
                                 1.0, 1.0,
                                 x_offset, y_offset,
-                                @labels[index], @scale)
+                                label_text, @scale)
         @d.rotation = -(@labels_rotation || 0)
         @labels_seen[index] = 1
         
