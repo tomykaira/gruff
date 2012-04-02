@@ -643,8 +643,8 @@ module Gruff
 
       current_x_offset = center(sum(label_widths.first))
       current_y_offset =  @hide_title ?
-      @top_margin + title_margin :
-        @top_margin + title_margin + @title_caps_height
+        @top_margin + legend_square_width / 2.0 + legend_margin / 2.0 :
+        @top_margin + title_margin + legend_square_width / 2.0 + legend_margin / 2.0 + @title_caps_height
 
       @legend_labels.each_with_index do |legend_label, index|
 
