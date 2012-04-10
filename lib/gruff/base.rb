@@ -143,6 +143,9 @@ module Gruff
 
     # The font size of the large title at the top of the graph
     attr_accessor :title_font_size
+    
+    # The color of the large title at the top of the graph
+    attr_accessor :title_font_color
 
     # Optionally set the size of the font. Based on an 800x600px graph.
     # Default is 20.
@@ -711,7 +714,7 @@ module Gruff
     def draw_title
       return if (@hide_title || @title.nil?)
 
-      @d.fill = @font_color
+      @d.fill = @title_font_color || @font_color
       @d.font = @font if @font
       @d.stroke('transparent')
       @d.pointsize = scale_fontsize(@title_font_size)
