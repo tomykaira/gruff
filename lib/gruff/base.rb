@@ -397,6 +397,7 @@ module Gruff
       # Maybe should be done in one of the following functions for more granularity.
       unless @has_data
         draw_no_data()
+        draw_title
         return
       end
 
