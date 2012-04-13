@@ -960,11 +960,11 @@ module Gruff
     # Return a formatted string representing a number value that should be
     # printed as a label.
     def label(value)
-    
-      if value == value.to_i
-        label = value.to_i.to_s
-      elsif @value_labels_format
+      
+      if @value_labels_format
         label = sprintf(@value_labels_format, value)
+      elsif value == value.to_i
+        label = value.to_i.to_s
       else
         label = if (@spread.to_f % @marker_count.to_f == 0) || !@y_axis_increment.nil?
           value.to_i.to_s
