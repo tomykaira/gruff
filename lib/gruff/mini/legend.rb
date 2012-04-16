@@ -4,6 +4,12 @@ module Gruff
 
       attr_accessor :hide_mini_legend, :legend_position
 
+      def initialize(width)
+        @hide_mini_legend = false
+        @legend_position = :left
+        super(width)
+      end
+
       ##
       # The canvas needs to be bigger so we can put the legend beneath it.
 
