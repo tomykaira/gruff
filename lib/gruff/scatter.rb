@@ -47,6 +47,7 @@ class Gruff::Scatter < Gruff::Base
     @baseline_x_color = @baseline_y_color = 'red'
     @baseline_x_value = @baseline_y_value = nil
     @marker_x_count = nil
+    @lines = []
   end
   
   def draw
@@ -103,6 +104,16 @@ class Gruff::Scatter < Gruff::Base
         prev_x = new_x
         prev_y = new_y
       end
+    end
+
+    level = @graph_top + @graph_height
+    @lines.each do |e|
+      @d = @d.push
+      @d.stroke "#000000"
+      @d.fill_opacity 0.0
+      dst = e[:arg] * @x_spread * (@graph_height /  @spread.to_f)
+      @d.line(@graph_left, level, @graph_left + @graph_width, level - dst)
+      @d = @d.pop
     end
 
     @d.draw(@base_image)
@@ -166,6 +177,10 @@ class Gruff::Scatter < Gruff::Base
                         x_data_points.max : @maximum_x_value
     @minimum_x_value = x_data_points.min < @minimum_x_value ?
                         x_data_points.min : @minimum_x_value
+  end
+
+  def line(name, arg)
+    @lines << { :name => name, :arg => arg }
   end
   
 protected
