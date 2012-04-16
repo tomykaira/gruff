@@ -243,6 +243,7 @@ module Gruff
       @labels_seen = Hash.new
       @sort = false
       @title = nil
+      @value_labels_format = nil
 
       @scale = @columns / @raw_columns
 
@@ -252,6 +253,7 @@ module Gruff
       @marker_font_size = 21.0
       @legend_font_size = 20.0
       @title_font_size = 36.0
+      @title_font_color = 'black'
 
       @top_margin = @bottom_margin = @left_margin = @right_margin = DEFAULT_MARGIN
       @legend_margin = LEGEND_MARGIN
@@ -265,6 +267,7 @@ module Gruff
       @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @show_labels_for_bar_values = false
       @center_labels_over_point = true
       @has_left_labels = false
+      @labels_rotation = 0
 
       @additional_line_values = []
       @additional_line_colors = []
@@ -747,16 +750,16 @@ module Gruff
         @d.font_weight = NormalWeight
         @d.pointsize = scale_fontsize(@marker_font_size)
         @d.gravity = NorthGravity
-        @d.rotation = @labels_rotation || 0
+        @d.rotation = @labels_rotation
         @d = @d.annotate_scaled(@base_image,
                                 1.0, 1.0,
                                 x_offset, y_offset,
                                 label_text, @scale)
-        @d.rotation = -(@labels_rotation || 0)
+        @d.rotation = -(@labels_rotation)
         @labels_seen[index] = 1
         
         # Draws extra label if needed unless rotation used
-        if !@xtra_labels[index].nil? && (@labels_rotation.nil? || @labels_rotation == 0)
+        if !@xtra_labels[index].nil? && @labels_rotation == 0
           @d = @d.annotate_scaled(@base_image,
                                   1.0, 1.0,
                                   x_offset, y_offset + @marker_font_size * 1.5,
