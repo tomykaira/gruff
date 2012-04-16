@@ -36,6 +36,7 @@ module Gruff
     DATA_VALUES_INDEX = 1
     DATA_COLOR_INDEX = 2
     ORIG_VALUES_INDEX = 3 #Only for normalized data
+    DATA_VALUES_X_INDEX = 3
 
     # Space around text elements. Mostly used for vertical spacing
     LEGEND_MARGIN = TITLE_MARGIN = 10.0

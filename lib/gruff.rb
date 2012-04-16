@@ -11,6 +11,7 @@
   spider
   net
   grouped_bar
+  scatter
   stacked_area
   stacked_bar
   side_stacked_bar
