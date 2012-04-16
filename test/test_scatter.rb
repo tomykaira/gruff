@@ -12,6 +12,24 @@ class TestGruffScatter < Test::Unit::TestCase
     ]
   end
 
+  def test_my_scatter
+    g = Gruff::Scatter.new
+    g.title = "Battery"
+    g.minimum_value = 0
+    g.minimum_x_value = 0
+    g.hide_legend = true
+    y_values = [10, 10, 20, 10, 10, 10, 20, 30, 10]
+    x_values = [1067, 2883, 4480, 736, 987, 1060, 4453, 7361, 2711]
+    g.data('user A', x_values, y_values)
+
+    g.slope_range('heavy', 0.002, 0.003060235487184685)
+    g.slope_range('middle', 0.003060235487184685, 0.005)
+    g.slope_range('light', 0.005, 0.007)
+
+    # Default theme
+    g.write("test/output/scatter_me.png")
+  end
+
   def test_scatter_graph
     g = setup_basic_graph
     g.title = "Basic Scatter Plot Test"
