@@ -158,10 +158,9 @@ class Gruff::Scatter < Gruff::Base
     #append the x data to the last entry that was just added in the @data member
     lastElem = @data.length()-1
     @data[lastElem] << x_data_points
-    
-    if @maximum_x_value.nil? && @minimum_x_value.nil?
-      @maximum_x_value = @minimum_x_value = x_data_points.first
-    end
+
+    @maximum_x_value ||= x_data_points.first
+    @minimum_x_value ||= x_data_points.first
     
     @maximum_x_value = x_data_points.max > @maximum_x_value ?
                         x_data_points.max : @maximum_x_value
