@@ -47,7 +47,7 @@ class Gruff::Scatter < Gruff::Base
     @baseline_x_color = @baseline_y_color = 'red'
     @baseline_x_value = @baseline_y_value = nil
     @marker_x_count = nil
-    @lines = []
+    @slope_ranges = []
   end
   
   def draw
@@ -66,21 +66,6 @@ class Gruff::Scatter < Gruff::Base
 
     # Check to see if more than one datapoint was given. NaN can result otherwise.  
     @x_increment = (@column_count > 1) ? (@graph_width / (@column_count - 1).to_f) : @graph_width
-
-    #~ if (defined?(@norm_y_baseline)) then
-      #~ level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
-      #~ @d = @d.push
-      #~ @d.stroke_color @baseline_color
-      #~ @d.fill_opacity 0.0
-      #~ @d.stroke_dasharray(10, 20)
-      #~ @d.stroke_width 5
-      #~ @d.line(@graph_left, level, @graph_left + @graph_width, level)
-      #~ @d = @d.pop
-    #~ end
-
-    #~ if (defined?(@norm_x_baseline)) then
-      
-    #~ end
 
     @norm_data.each do |data_row|      
       prev_x = prev_y = nil
@@ -107,12 +92,13 @@ class Gruff::Scatter < Gruff::Base
     end
 
     level = @graph_top + @graph_height
-    @lines.each do |e|
+    @slope_ranges.each do |e|
       @d = @d.push
-      @d.stroke "#000000"
-      @d.fill_opacity 0.0
-      dst = e[:arg] * @x_spread * (@graph_height /  @spread.to_f)
-      @d.line(@graph_left, level, @graph_left + @graph_width, level - dst)
+      @d.stroke("#000000").stroke_width(1)
+      @d.fill(range_color(e[:name])).opacity(0.4)
+      y_from = e[:arg_from] * @x_spread * (@graph_height /  @spread.to_f)
+      y_to = e[:arg_to] * @x_spread * (@graph_height /  @spread.to_f)
+      @d.polygon(@graph_left, level, @graph_left + @graph_width, level - y_from, @graph_left + @graph_width, level - y_to)
       @d = @d.pop
     end
 
@@ -179,8 +165,8 @@ class Gruff::Scatter < Gruff::Base
                         x_data_points.min : @minimum_x_value
   end
 
-  def line(name, arg)
-    @lines << { :name => name, :arg => arg }
+  def slope_range(name, from, to)
+    @slope_ranges << { :name => name, :arg_from => from, :arg_to => to }
   end
   
 protected
@@ -278,5 +264,16 @@ private
   def getXCoord(x_data_point, width, offset) #:nodoc:
     return(x_data_point * width + offset)
   end
-  
+
+  def range_color(name)
+    case name
+    when 'heavy'
+      '#d36d7d'
+    when 'middle'
+      '#b46d9c'
+    when 'light'
+      '#9177b0'
+    end
+  end
+
 end # end Gruff::Scatter
