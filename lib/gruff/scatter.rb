@@ -47,6 +47,7 @@ class Gruff::Scatter < Gruff::Base
     @baseline_x_color = @baseline_y_color = 'red'
     @baseline_x_value = @baseline_y_value = nil
     @marker_x_count = nil
+    @slope_ranges = []
   end
   
   def draw
@@ -65,21 +66,6 @@ class Gruff::Scatter < Gruff::Base
 
     # Check to see if more than one datapoint was given. NaN can result otherwise.  
     @x_increment = (@column_count > 1) ? (@graph_width / (@column_count - 1).to_f) : @graph_width
-
-    #~ if (defined?(@norm_y_baseline)) then
-      #~ level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
-      #~ @d = @d.push
-      #~ @d.stroke_color @baseline_color
-      #~ @d.fill_opacity 0.0
-      #~ @d.stroke_dasharray(10, 20)
-      #~ @d.stroke_width 5
-      #~ @d.line(@graph_left, level, @graph_left + @graph_width, level)
-      #~ @d = @d.pop
-    #~ end
-
-    #~ if (defined?(@norm_x_baseline)) then
-      
-    #~ end
 
     @norm_data.each do |data_row|      
       prev_x = prev_y = nil
@@ -104,6 +90,8 @@ class Gruff::Scatter < Gruff::Base
         prev_y = new_y
       end
     end
+
+    draw_slope_ranges(@d, @graph_top + @graph_height)
 
     @d.draw(@base_image)
   end
@@ -158,15 +146,18 @@ class Gruff::Scatter < Gruff::Base
     #append the x data to the last entry that was just added in the @data member
     lastElem = @data.length()-1
     @data[lastElem] << x_data_points
-    
-    if @maximum_x_value.nil? && @minimum_x_value.nil?
-      @maximum_x_value = @minimum_x_value = x_data_points.first
-    end
+
+    @maximum_x_value ||= x_data_points.first
+    @minimum_x_value ||= x_data_points.first
     
     @maximum_x_value = x_data_points.max > @maximum_x_value ?
                         x_data_points.max : @maximum_x_value
     @minimum_x_value = x_data_points.min < @minimum_x_value ?
                         x_data_points.min : @minimum_x_value
+  end
+
+  def slope_range(name, from, to)
+    @slope_ranges << { :name => name, :arg_from => from, :arg_to => to }
   end
   
 protected
@@ -264,5 +255,30 @@ private
   def getXCoord(x_data_point, width, offset) #:nodoc:
     return(x_data_point * width + offset)
   end
-  
+
+  def range_color(name)
+    case name
+    when 'heavy'
+      '#d36d7d'
+    when 'middle'
+      '#b46d9c'
+    when 'light'
+      '#9177b0'
+    end
+  end
+
+  def draw_slope_ranges(d, level)
+    d = d.push
+    d.stroke("#000000").stroke_width(1)
+    @slope_ranges.each do |e|
+      d = d.push
+      d.fill(range_color(e[:name])).opacity(0.4)
+      y_from = e[:arg_from] * @x_spread * (@graph_height /  @spread.to_f)
+      y_to = e[:arg_to] * @x_spread * (@graph_height /  @spread.to_f)
+      d.polygon(@graph_left, level, @graph_left + @graph_width, level - y_from, @graph_left + @graph_width, level - y_to)
+      d.pop
+    end
+    d = d.pop
+  end
+
 end # end Gruff::Scatter
