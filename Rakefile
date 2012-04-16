@@ -3,13 +3,13 @@ require 'hoe'
 $:.unshift(File.dirname(__FILE__) + "/lib")
 require 'gruff'
 
-Hoe.new('Gruff', Gruff::VERSION) do |p|
+Hoe.spec('Gruff') do |p|
   p.name = "gruff"
   p.author = "Geoffrey Grosenbach"
   p.description = "Beautiful graphs for one or multiple datasets. Can be used on websites or in documents."
   p.email = 'boss@topfunky.com'
   p.summary = "Beautiful graphs for one or multiple datasets."
-  p.url = "http://nubyonrails.com/pages/gruff"
+  p.urls = ["http://nubyonrails.com/pages/gruff"]
   p.clean_globs = ['test/output/*.png']
   p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
   p.remote_rdoc_dir = '' # Release to root
