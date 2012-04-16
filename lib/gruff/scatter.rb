@@ -91,16 +91,7 @@ class Gruff::Scatter < Gruff::Base
       end
     end
 
-    level = @graph_top + @graph_height
-    @slope_ranges.each do |e|
-      @d = @d.push
-      @d.stroke("#000000").stroke_width(1)
-      @d.fill(range_color(e[:name])).opacity(0.4)
-      y_from = e[:arg_from] * @x_spread * (@graph_height /  @spread.to_f)
-      y_to = e[:arg_to] * @x_spread * (@graph_height /  @spread.to_f)
-      @d.polygon(@graph_left, level, @graph_left + @graph_width, level - y_from, @graph_left + @graph_width, level - y_to)
-      @d = @d.pop
-    end
+    draw_slope_ranges(@d, @graph_top + @graph_height)
 
     @d.draw(@base_image)
   end
@@ -274,6 +265,20 @@ private
     when 'light'
       '#9177b0'
     end
+  end
+
+  def draw_slope_ranges(d, level)
+    d = d.push
+    d.stroke("#000000").stroke_width(1)
+    @slope_ranges.each do |e|
+      d = d.push
+      d.fill(range_color(e[:name])).opacity(0.4)
+      y_from = e[:arg_from] * @x_spread * (@graph_height /  @spread.to_f)
+      y_to = e[:arg_to] * @x_spread * (@graph_height /  @spread.to_f)
+      d.polygon(@graph_left, level, @graph_left + @graph_width, level - y_from, @graph_left + @graph_width, level - y_to)
+      d.pop
+    end
+    d = d.pop
   end
 
 end # end Gruff::Scatter
