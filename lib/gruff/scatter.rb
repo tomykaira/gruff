@@ -91,7 +91,7 @@ class Gruff::Scatter < Gruff::Base
       end
     end
 
-    draw_slope_ranges(@d, @graph_top + @graph_height)
+    draw_slope_ranges(@d, @graph_top)
 
     @d.draw(@base_image)
   end
@@ -275,7 +275,7 @@ private
       d.fill(range_color(e[:name])).opacity(0.4)
       y_from = e[:arg_from] * @x_spread * (@graph_height /  @spread.to_f)
       y_to = e[:arg_to] * @x_spread * (@graph_height /  @spread.to_f)
-      d.polygon(@graph_left, level, @graph_left + @graph_width, level - y_from, @graph_left + @graph_width, level - y_to)
+      d.polygon(@graph_left, level, @graph_left + @graph_width, level + y_from, @graph_left + @graph_width, level + y_to)
       d.pop
     end
     d = d.pop
