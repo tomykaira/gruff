@@ -26,6 +26,10 @@ class TestGruffScatter < Test::Unit::TestCase
     g.slope_range('middle', 0.003060235487184685, 0.005)
     g.slope_range('light', 0.005, 0.007)
 
+    g.description = [{ :color => '#d36d7d', :text => 'Heavy: 2.5 hrs' },
+                         { :color => '#b46d9c', :text => 'Middle: 4 hrs' },
+                         { :color => '#9177b0', :text => 'Light: 7.5 hrs' }]
+
     # Default theme
     g.write("test/output/scatter_me.png")
   end

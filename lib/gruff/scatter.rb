@@ -20,6 +20,8 @@ class Gruff::Scatter < Gruff::Base
   
   # The number of vertical lines shown for reference
   attr_accessor :marker_x_count
+
+  attr_accessor :description
   
   #~ # Draw a dashed horizontal line at the given y value
   #~ attr_accessor :baseline_y_value
@@ -48,6 +50,7 @@ class Gruff::Scatter < Gruff::Base
     @baseline_x_value = @baseline_y_value = nil
     @marker_x_count = nil
     @slope_ranges = []
+    @description = nil
   end
   
   def draw
@@ -92,6 +95,7 @@ class Gruff::Scatter < Gruff::Base
     end
 
     draw_slope_ranges(@d, @graph_top)
+    draw_description
 
     @d.draw(@base_image)
   end
@@ -158,6 +162,32 @@ class Gruff::Scatter < Gruff::Base
 
   def slope_range(name, from, to)
     @slope_ranges << { :name => name, :arg_from => from, :arg_to => to }
+  end
+
+  # Draws a title on the graph.
+  def draw_description
+    return if @hide_description and @description
+
+    @d = @d.push
+
+    @d.font = @font if @font
+    @d.stroke('transparent')
+    @d.pointsize = scale_fontsize(@description_font_size)
+    @d.gravity = CenterGravity
+
+    y = @top_margin +
+      (@hide_title  ? 0.0 : @title_caps_height  + @title_margin ) +
+      (@hide_legend ? 0.0 : @legend_caps_height + @legend_margin)
+
+    @description.each_with_index do |e, i|
+      @d.fill = e[:color] || @font_color
+      @d = @d.annotate_scaled( @base_image,
+                       @raw_columns, 1.0,
+                       (i - 1) * 200.0, y,
+                       e[:text], @scale)
+    end
+
+    @d = @d.pop
   end
   
 protected

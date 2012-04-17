@@ -39,7 +39,7 @@ module Gruff
     DATA_VALUES_X_INDEX = 3
 
     # Space around text elements. Mostly used for vertical spacing
-    LEGEND_MARGIN = TITLE_MARGIN = 10.0
+    DESCRIPTION_MARGIN = LEGEND_MARGIN = TITLE_MARGIN = 10.0
     LABEL_MARGIN = 5.0
     DEFAULT_MARGIN = 5.0
 
@@ -253,11 +253,13 @@ module Gruff
 
       @marker_font_size = 21.0
       @legend_font_size = 20.0
+      @description_font_size = 20.0
       @title_font_size = 36.0
       @title_font_color = 'black'
 
       @top_margin = @bottom_margin = @left_margin = @right_margin = DEFAULT_MARGIN
       @legend_margin = LEGEND_MARGIN
+      @description_margin = DESCRIPTION_MARGIN
       @title_margin = TITLE_MARGIN
 
       @legend_box_size = 20.0
@@ -451,6 +453,8 @@ module Gruff
         calculate_caps_height(@title_font_size)
       @legend_caps_height = @hide_legend ? 0 :
         calculate_caps_height(@legend_font_size)
+      @description_caps_height = @hide_description ? 0 :
+        calculate_caps_height(@description_font_size)
 
       if @hide_line_markers
         (@graph_left,
@@ -496,7 +500,8 @@ module Gruff
       # Same with @hide_legend
       @graph_top = @top_margin +
         (@hide_title  ? 0.0 : @title_caps_height  + title_margin ) +
-        (@hide_legend ? 0.0 : @legend_caps_height + legend_margin)
+        (@hide_legend ? 0.0 : @legend_caps_height + legend_margin) +
+        (@hide_description ? 0.0 : @description_caps_height + @description_margin) +
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 :
         @marker_caps_height + LABEL_MARGIN
