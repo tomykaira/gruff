@@ -573,7 +573,7 @@ module Gruff
       (0..@marker_count).each do |index|
         y = @graph_top + @graph_height - index.to_f * @increment_scaled
 
-        @d = @d.fill(index == 0 ? @marker_base_color : @marker_color)
+        @d = @d.fill(index == @marker_count ? @marker_base_color : @marker_color)
         @d = @d.line(@graph_left, y, @graph_right, y)
 
         marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) +

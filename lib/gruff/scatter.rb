@@ -223,15 +223,10 @@ protected
     # Draw vertical line markers and annotate with numbers
     (0..@marker_x_count).each do |index|
       x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
-      
-      # TODO Fix the vertical lines.  Not pretty when they don't match up with top y-axis line
-      #~ @d = @d.stroke(@marker_color)
-      #~ @d = @d.stroke_width 1
-      #~ @d = @d.line(x, @graph_top, x, @graph_bottom)
 
       unless @hide_line_numbers
         marker_label = index * @x_increment + @minimum_x_value.to_f
-        y_offset = @graph_bottom + LABEL_MARGIN 
+        y_offset = @graph_top - LABEL_MARGIN * 4
         x_offset = getXCoord(index.to_f, @increment_x_scaled, @graph_left)
 
         @d.fill = @font_color
