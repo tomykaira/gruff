@@ -176,7 +176,7 @@ class Gruff::Scatter < Gruff::Base
     @d = @d.push
     @d.fill('transparent')
     @d.stroke("#333333").stroke_width(2)
-    @d.rectangle(@graph_width / 2.0 - 300, y - h / 2, @graph_width / 2.0 + 380, y + h / 2)
+    @d.rectangle(@graph_width / 2.0 - 320, y - h / 2, @graph_width / 2.0 + 430, y + h / 2)
     @d = @d.pop
 
     @d = @d.push
@@ -186,7 +186,7 @@ class Gruff::Scatter < Gruff::Base
     @d.pointsize = scale_fontsize(@description_font_size)
 
     @description.each_with_index do |e, i|
-      x = @graph_width / 2.0 + (i - 1) * 200.0 - 50
+      x = @graph_width / 2.0 + (i - 1) * 250.0 - 50
       text_x = x + @description_font_size + 5
       text_y = y + @description_font_size / 2.0 - 2
       @d.fill(e[:color] || @font_color).

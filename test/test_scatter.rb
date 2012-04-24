@@ -13,13 +13,16 @@ class TestGruffScatter < Test::Unit::TestCase
   end
 
   def test_my_scatter
-    g = Gruff::Scatter.new
+    g = Gruff::Scatter.new(721)
     g.title = "Battery"
     g.maximum_value = 100
     g.minimum_value = 0
     g.maximum_x_value = 10
     g.minimum_x_value = 0
     g.hide_legend = true
+    g.right_margin += 10
+    g.x_axis_label = 'Time'
+    g.y_axis_label = 'Battery'
     g.font = '/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf'
     y_values = [-10, -10, -20, -10, -10, -10, -20, -30, -10].map { |x| x + 100 }
     x_values = [1067, 2883, 4480, 736, 987, 1060, 4453, 7361, 2711].map { |x| x / 3600.0 }
@@ -29,9 +32,9 @@ class TestGruffScatter < Test::Unit::TestCase
     g.slope_range('#779bcd', 0.003060235487184685 * 3600.0, 0.005 * 3600.0)
     g.slope_range('#bbcde6', 0.005 * 3600.0, 0.007 * 3600.0)
 
-    g.description = [{ :color => '#3369b3', :text => 'Heavy: 2.5 hrs' },
-      { :color => '#779bcd', :text => 'Middle: 4 hrs' },
-      { :color => '#bbcde6', :text => 'Light: 7.5 hrs' }]
+    g.description = [{ :color => '#3369b3', :text => 'Heavy User: 2.50 hrs' },
+      { :color => '#779bcd', :text => 'Middle User: 4.00 hrs' },
+      { :color => '#bbcde6', :text => 'Light User: 7.50 hrs' }]
 
     # Default theme
     g.write("test/output/scatter_me.png")

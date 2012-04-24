@@ -521,7 +521,7 @@ module Gruff
         # X Axis
         # Centered vertically and horizontally by setting the
         # height to 1.0 and the width to the width of the graph.
-        x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height
+        x_axis_label_y_coordinate = @graph_top - LABEL_MARGIN * 2 -  @marker_caps_height
 
         # TODO Center between graph area
         @d.fill = @font_color
