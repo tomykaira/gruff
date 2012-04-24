@@ -24,13 +24,13 @@ class TestGruffScatter < Test::Unit::TestCase
     x_values = [1067, 2883, 4480, 736, 987, 1060, 4453, 7361, 2711].map { |x| x / 3600.0 }
     g.data('user A', x_values, y_values)
 
-    g.slope_range('heavy', 0.002 * 3600.0, 0.003060235487184685 * 3600.0)
-    g.slope_range('middle', 0.003060235487184685 * 3600.0, 0.005 * 3600.0)
-    g.slope_range('light', 0.005 * 3600.0, 0.007 * 3600.0)
+    g.slope_range('#3369b3', 0.002 * 3600.0, 0.003060235487184685 * 3600.0)
+    g.slope_range('#779bcd', 0.003060235487184685 * 3600.0, 0.005 * 3600.0)
+    g.slope_range('#bbcde6', 0.005 * 3600.0, 0.007 * 3600.0)
 
-    g.description = [{ :color => '#d36d7d', :text => 'Heavy: 2.5 hrs' },
-                         { :color => '#b46d9c', :text => 'Middle: 4 hrs' },
-                         { :color => '#9177b0', :text => 'Light: 7.5 hrs' }]
+    g.description = [{ :color => '#3369b3', :text => 'Heavy: 2.5 hrs' },
+      { :color => '#779bcd', :text => 'Middle: 4 hrs' },
+      { :color => '#bbcde6', :text => 'Light: 7.5 hrs' }]
 
     # Default theme
     g.write("test/output/scatter_me.png")

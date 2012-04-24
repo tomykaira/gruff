@@ -160,8 +160,8 @@ class Gruff::Scatter < Gruff::Base
                         x_data_points.min : @minimum_x_value
   end
 
-  def slope_range(name, from, to)
-    @slope_ranges << { :name => name, :arg_from => from, :arg_to => to }
+  def slope_range(color, from, to)
+    @slope_ranges << { :color => color, :arg_from => from, :arg_to => to }
   end
 
   # Draws a title on the graph.
@@ -281,23 +281,12 @@ private
     return(x_data_point * width + offset)
   end
 
-  def range_color(name)
-    case name
-    when 'heavy'
-      '#d36d7d'
-    when 'middle'
-      '#b46d9c'
-    when 'light'
-      '#9177b0'
-    end
-  end
-
   def draw_slope_ranges(d, level)
     d = d.push
     d.stroke("#000000").stroke_width(1)
     @slope_ranges.each do |e|
       d = d.push
-      d.fill(range_color(e[:name])).opacity(0.4)
+      d.fill(e[:color]).opacity(0.4)
       y_from = e[:arg_from] * @x_spread * (@graph_height /  @spread.to_f)
       y_to = e[:arg_to] * @x_spread * (@graph_height /  @spread.to_f)
       d.polygon(@graph_left, level, @graph_left + @graph_width, level + y_from, @graph_left + @graph_width, level + y_to)
