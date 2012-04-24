@@ -39,7 +39,7 @@ module Gruff
     DATA_VALUES_X_INDEX = 3
 
     # Space around text elements. Mostly used for vertical spacing
-    DESCRIPTION_MARGIN = LEGEND_MARGIN = TITLE_MARGIN = 10.0
+    DESCRIPTION_MARGIN = LEGEND_MARGIN = TITLE_MARGIN = 15.0
     LABEL_MARGIN = 5.0
     DEFAULT_MARGIN = 5.0
 
@@ -64,6 +64,9 @@ module Gruff
 
     # Blank space below the legend
     attr_accessor :legend_margin
+
+    # Blank space below the description
+    attr_accessor :description_margin
 
     # A hash of names for the individual columns, where the key is the array
     # index for the column this label represents.
@@ -156,6 +159,9 @@ module Gruff
 
     # The font size of the labels around the graph
     attr_accessor :marker_font_size
+
+    # The font size of the description
+    attr_accessor :description_font_size
 
     # The color of the auxiliary lines
     attr_accessor :marker_color

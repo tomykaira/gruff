@@ -20,6 +20,7 @@ class TestGruffScatter < Test::Unit::TestCase
     g.maximum_x_value = 10
     g.minimum_x_value = 0
     g.hide_legend = true
+    g.font = '/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf'
     y_values = [-10, -10, -20, -10, -10, -10, -20, -30, -10].map { |x| x + 100 }
     x_values = [1067, 2883, 4480, 736, 987, 1060, 4453, 7361, 2711].map { |x| x / 3600.0 }
     g.data('user A', x_values, y_values)

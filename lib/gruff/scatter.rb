@@ -168,23 +168,31 @@ class Gruff::Scatter < Gruff::Base
   def draw_description
     return if @hide_description and @description
 
+    y = @top_margin +
+      (@hide_title  ? 0.0 : @title_caps_height  + @title_margin ) +
+      (@hide_legend ? 0.0 : @legend_caps_height + @legend_margin)
+    h = @description_font_size * 1.5
+
+    @d = @d.push
+    @d.fill('transparent')
+    @d.stroke("#333333").stroke_width(2)
+    @d.rectangle(@graph_width / 2.0 - 300, y - h / 2, @graph_width / 2.0 + 380, y + h / 2)
+    @d = @d.pop
+
     @d = @d.push
 
     @d.font = @font if @font
     @d.stroke('transparent')
     @d.pointsize = scale_fontsize(@description_font_size)
-    @d.gravity = CenterGravity
-
-    y = @top_margin +
-      (@hide_title  ? 0.0 : @title_caps_height  + @title_margin ) +
-      (@hide_legend ? 0.0 : @legend_caps_height + @legend_margin)
 
     @description.each_with_index do |e, i|
-      @d.fill = e[:color] || @font_color
-      @d = @d.annotate_scaled( @base_image,
-                       @raw_columns, 1.0,
-                       (i - 1) * 200.0, y,
-                       e[:text], @scale)
+      x = @graph_width / 2.0 + (i - 1) * 200.0 - 50
+      text_x = x + @description_font_size + 5
+      text_y = y + @description_font_size / 2.0 - 2
+      @d.fill(e[:color] || @font_color).
+          rectangle(x, y - @description_font_size / 2.0,
+         x + @description_font_size, y + @description_font_size / 2.0)
+      @d.fill("#000000").text_align(LeftAlign).text(text_x, text_y, e[:text])
     end
 
     @d = @d.pop
